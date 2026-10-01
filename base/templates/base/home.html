@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        padding: 10px;
+    }
+</style>
+<body>
+    
+    <!-- sidebar -->
+    <div class="home-container">
+        {% include 'base/sidebar.html' %}
+       
+        <!-- posts -->
+        {% include 'base/feed_component.html' %}
+        
+    </div>
+</body>
+
+{% endblock content %}

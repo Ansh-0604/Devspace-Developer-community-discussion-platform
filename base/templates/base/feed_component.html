@@ -1,0 +1,340 @@
+<div class="devspace-content">
+
+    <!-- Projects -->
+    <section class="projects-section">
+
+        <div class="section-header">
+            <div>
+                <h2>Projects</h2>
+                <p>Your active development projects</p>
+            </div>
+        </div>
+
+        <div class="projects-grid">
+
+            {% for project in projects %}
+
+            <div class="project-card">
+
+                <div class="project-card-top">
+                    <span class="project-status">
+                        {{ project.get_status_display }}
+                    </span>
+                </div>
+
+                <h3>{{ project.name }}</h3>
+
+                <p class="project-description">
+                    {{ project.description|truncatewords:20 }}
+                </p>
+
+                {% if project.tech_stack %}
+                <div class="tech-stack">
+                    {% for tech in project.tech_stack.split %}
+                        <span>{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <a
+                    href="{% url 'project-detail' project.id %}"
+                    class="project-link"
+                >
+                    View development journey →
+                </a>
+
+            </div>
+
+            {% empty %}
+
+            <div class="empty-projects">
+                <p>No projects yet.</p>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- DevLogs -->
+    <section class="devlogs-section">
+
+        <div class="section-header">
+            <div>
+                <h2>Latest DevLogs</h2>
+                <p>What developers are building, fixing and learning</p>
+            </div>
+        </div>
+
+        <div class="devlogs-list">
+
+            {% for blog in blogs %}
+
+            <article class="devlog-card">
+
+                <div class="devlog-user">
+                    <div class="devlog-avatar">
+                        {{ blog.user.username|first|upper }}
+                    </div>
+
+                    <span>@{{ blog.user.username }}</span>
+                </div>
+
+                <a href="{% url 'blog' blog.id %}" class="devlog-title">
+                    {{ blog.title }}
+                </a>
+
+                <p class="devlog-preview">
+                    {{ blog.content|truncatechars:150 }}...
+                </p>
+
+                <div class="devlog-footer">
+                    <span>{{ blog.category }}</span>
+                    <a href="{% url 'blog' blog.id %}">
+                        Read log →
+                    </a>
+                </div>
+
+            </article>
+
+            {% empty %}
+
+            <p>No DevLogs yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<style>
+
+.devspace-content {
+    width: 100%;
+}
+
+
+
+/* ---------- Section Headers ---------- */
+
+.section-header {
+    margin-bottom: 18px;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #111827;
+}
+
+.section-header p {
+    margin: 5px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* ---------- Projects ---------- */
+
+.projects-section {
+    margin-bottom: 40px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.project-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    transition: 0.2s ease;
+}
+
+.project-card:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+}
+
+.project-card-top {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.project-status {
+    font-size: 12px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.project-card h3 {
+    margin: 14px 0 8px;
+    font-size: 19px;
+    color: #111827;
+}
+
+.project-description {
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+
+/* ---------- Tech Stack ---------- */
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.tech-stack span {
+    font-size: 12px;
+    padding: 5px 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    color: #475569;
+}
+
+
+/* ---------- Project Link ---------- */
+
+.project-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+
+/* ---------- DevLogs ---------- */
+
+.devlogs-section {
+    margin-top: 10px;
+}
+
+.devlogs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.devlog-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 18px 20px;
+}
+
+.devlog-user {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 12px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.devlog-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #334155;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.devlog-title {
+    display: block;
+    color: #111827;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 7px;
+}
+
+.devlog-title:hover {
+    color: #2563eb;
+}
+
+.devlog-preview {
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 15px;
+}
+
+.devlog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
+
+    font-size: 12px;
+}
+
+.devlog-footer span {
+    color: #64748b;
+    background: #f8fafc;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.devlog-footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.devlog-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* ---------- Empty State ---------- */
+
+.empty-projects {
+    padding: 25px;
+    text-align: center;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    color: #64748b;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 700px) {
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>

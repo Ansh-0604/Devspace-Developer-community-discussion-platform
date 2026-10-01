@@ -1,0 +1,485 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="project-page">
+
+    <!-- Project Header -->
+    <div class="project-header">
+
+        <div class="project-header-main">
+
+            <div class="project-status">
+                {{ project.get_status_display }}
+            </div>
+
+            <h1>{{ project.name }}</h1>
+
+            <p class="project-description">
+                {{ project.description }}
+            </p>
+
+            {% if project.tech_stack %}
+                <div class="tech-stack">
+
+                    {% for tech in project.tech_stack.split %}
+                        <span>{{ tech }}</span>
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        {% if project.github_link %}
+            <a
+                href="{{ project.github_link }}"
+                target="_blank"
+                class="github-button"
+            >
+                GitHub ↗
+            </a>
+        {% endif %}
+
+    </div>
+
+
+    <!-- Development Journey -->
+    <section class="journey-section">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Development Journey</h2>
+                <p>
+                    Everything that happened while building this project.
+                </p>
+            </div>
+
+            <a
+                href="{% url 'create-devlog' project.id %}"
+                class="add-log-button"
+            >
+                + Add DevLog
+            </a>
+
+        </div>
+
+
+        <div class="timeline">
+
+            {% for log in devlogs %}
+
+                <div class="timeline-item">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="devlog-card">
+
+                        <div class="devlog-top">
+
+                            <span class="log-type {{ log.log_type }}">
+                                {{ log.get_log_type_display }}
+                            </span>
+
+                            <small>
+                                {{ log.created|date:"M d, Y" }}
+                            </small>
+
+                        </div>
+
+                        <h3>{{ log.title }}</h3>
+
+                        <p>
+                            {{ log.content }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="empty-state">
+                    <p>No development logs yet.</p>
+
+                    <a href="{% url 'create-devlog' project.id %}">
+                        Create your first DevLog →
+                    </a>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- Milestones -->
+    <section class="milestones-section">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Milestones</h2>
+                <p>Important points in the project's development.</p>
+            </div>
+
+        </div>
+
+
+        <div class="milestones">
+
+            {% for milestone in milestones %}
+
+                <div class="milestone">
+
+                    <div class="milestone-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <h3>{{ milestone.title }}</h3>
+
+                        <small>
+                            {{ milestone.created|date:"M d, Y" }}
+                        </small>
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="empty-state">
+                    <p>No milestones yet.</p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<style>
+
+/* ============================= */
+/* Project Page */
+/* ============================= */
+
+.project-page {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+
+/* ============================= */
+/* Project Header */
+/* ============================= */
+
+.project-header {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 28px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.project-header h1 {
+    margin: 10px 0;
+    font-size: 32px;
+    color: #0f172a;
+}
+
+.project-description {
+    color: #64748b;
+    line-height: 1.7;
+    max-width: 700px;
+}
+
+.project-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #e0e7ff;
+    color: #4338ca;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ============================= */
+/* Tech Stack */
+/* ============================= */
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 18px;
+}
+
+.tech-stack span {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+
+/* ============================= */
+/* GitHub */
+/* ============================= */
+
+.github-button {
+    align-self: flex-start;
+    text-decoration: none;
+    background: #0f172a;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.github-button:hover {
+    background: #1e293b;
+}
+
+
+/* ============================= */
+/* Sections */
+/* ============================= */
+
+.journey-section,
+.milestones-section {
+    margin-bottom: 35px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 23px;
+    color: #0f172a;
+}
+
+.section-heading p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* ============================= */
+/* Add DevLog */
+/* ============================= */
+
+.add-log-button {
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.add-log-button:hover {
+    background: #1d4ed8;
+}
+
+
+/* ============================= */
+/* Timeline */
+/* ============================= */
+
+.timeline {
+    position: relative;
+    padding-left: 28px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: #e2e8f0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -28px;
+    top: 20px;
+
+    width: 11px;
+    height: 11px;
+
+    background: #2563eb;
+    border: 3px solid #dbeafe;
+    border-radius: 50%;
+}
+
+
+/* ============================= */
+/* DevLog Card */
+/* ============================= */
+
+.devlog-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 11px;
+    padding: 18px 20px;
+}
+
+.devlog-card h3 {
+    margin: 10px 0 7px;
+    font-size: 17px;
+    color: #0f172a;
+}
+
+.devlog-card p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.devlog-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.devlog-top small {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+
+/* ============================= */
+/* Log Type */
+/* ============================= */
+
+.log-type {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+
+/* ============================= */
+/* Milestones */
+/* ============================= */
+
+.milestones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.milestone {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.milestone-icon {
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #dcfce7;
+    color: #15803d;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.milestone h3 {
+    margin: 0 0 3px;
+    font-size: 14px;
+    color: #334155;
+}
+
+.milestone small {
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+
+/* ============================= */
+/* Empty State */
+/* ============================= */
+
+.empty-state {
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    color: #64748b;
+}
+
+.empty-state a {
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+
+/* ============================= */
+/* Mobile */
+/* ============================= */
+
+@media (max-width: 700px) {
+
+    .project-header {
+        flex-direction: column;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+}
+
+</style>
+
+{% endblock content %}

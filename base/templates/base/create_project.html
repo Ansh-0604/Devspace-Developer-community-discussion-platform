@@ -1,0 +1,332 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="create-project-page">
+
+    <div class="create-project-card">
+
+        <!-- Header -->
+        <div class="create-project-header">
+
+            <div class="project-icon">
+                +
+            </div>
+
+            <div>
+                <h1>Create Project</h1>
+                <p>Start documenting a new development journey.</p>
+            </div>
+
+        </div>
+
+
+        <!-- Form -->
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <!-- Project Name -->
+            <div class="form-group">
+
+                <label>Project Name</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="e.g. DevSpace"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Description -->
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    name="description"
+                    rows="6"
+                    placeholder="What are you building? What problem does it solve?"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- Tech Stack -->
+            <div class="form-group">
+
+                <label>Tech Stack</label>
+
+                <input
+                    type="text"
+                    name="tech_stack"
+                    placeholder="Django, PostgreSQL, React..."
+                >
+
+                <small>
+                    Separate technologies with spaces.
+                </small>
+
+            </div>
+
+
+            <!-- GitHub -->
+            <div class="form-group">
+
+                <label>GitHub Repository</label>
+
+                <input
+                    type="url"
+                    name="github_link"
+                    placeholder="https://github.com/username/project"
+                >
+
+            </div>
+
+
+            <!-- Actions -->
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="create-btn"
+                >
+                    Create Project
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* ========================= */
+/* Page */
+/* ========================= */
+
+.create-project-page {
+    max-width: 750px;
+    margin: 30px auto;
+}
+
+
+/* ========================= */
+/* Card */
+/* ========================= */
+
+.create-project-card {
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    padding: 30px;
+}
+
+
+/* ========================= */
+/* Header */
+/* ========================= */
+
+.create-project-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.create-project-header h1 {
+    margin: 0;
+
+    font-size: 26px;
+    color: #0f172a;
+}
+
+.create-project-header p {
+    margin: 5px 0 0;
+
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* ========================= */
+/* Project Icon */
+/* ========================= */
+
+.project-icon {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #0f172a;
+    color: white;
+
+    font-size: 26px;
+    font-weight: 400;
+}
+
+
+/* ========================= */
+/* Form */
+/* ========================= */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+
+    background: #f8fafc;
+
+    color: #0f172a;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+}
+
+.form-group textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.form-group small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+
+/* ========================= */
+/* Actions */
+/* ========================= */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #f1f5f9;
+}
+
+.cancel-btn,
+.create-btn {
+    padding: 9px 15px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.cancel-btn:hover {
+    background: #e2e8f0;
+}
+
+.create-btn {
+    border: none;
+
+    background: #0f172a;
+    color: white;
+}
+
+.create-btn:hover {
+    background: #1e293b;
+}
+
+
+/* ========================= */
+/* Mobile */
+/* ========================= */
+
+@media (max-width: 700px) {
+
+    .create-project-page {
+        margin: 15px;
+    }
+
+    .create-project-card {
+        padding: 22px;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    .cancel-btn,
+    .create-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+}
+
+</style>
+
+{% endblock content %}

@@ -1,0 +1,198 @@
+<div class="devspace-sidebar">
+
+    <!-- Welcome -->
+    <div class="sidebar-section">
+        <h3>Welcome to DevSpace</h3>
+        <p>
+            DevSpace is a place to discover ideas, experiences, and
+            knowledge shared by writers from different backgrounds.
+            Read, explore, and share your own stories with the community.
+        </p>
+    </div>
+
+    <!-- Categories -->
+    <div class="sidebar-section">
+        <h3>Explore Categories</h3>
+
+        <ul>
+            <li>
+                <a href="#">Technology</a>
+            </li>
+            <li>
+                <a href="#">Programming</a>
+            </li>
+            <li>
+                <a href="#">Artificial Intelligence</a>
+            </li>
+            <li>
+                <a href="#">Web Development</a>
+            </li>
+            <li>
+                <a href="#">Career & Learning</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Popular Topics -->
+    <div class="sidebar-section">
+        <h3>Popular Topics</h3>
+
+        <ul>
+            <li>
+                <a href="{% url 'home' %}?topic=programming">Programming</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=web-development">Web Development</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=backend">Backend</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=frontend">Frontend</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=databases">Databases</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=devops">DevOps & Cloud</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=machine-learning">Machine Learning</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=system-design">System Design</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=career">Career</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'home' %}?topic=learning">Learning</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="sidebar-section">
+        <h3>Have Something to Share?</h3>
+
+        <p>
+            Share your thoughts, experiences, and ideas with the
+            MyBlog community.
+        </p>
+
+        <a href="#" class="write-btn">
+            Start Writing
+        </a>
+    </div>
+
+    <hr>
+
+</div>
+
+<style>
+   .devspace-sidebar {
+    width: 260px;
+    height: 100%;
+    padding: 16px 12px;
+    background: #eff6ff;
+    border-right: 1px solid #e2e8f0;
+    box-sizing: border-box;
+    margin-right: 5px;
+}
+
+/* Each section */
+.devspace-sidebar .sidebar-section {
+    margin-bottom: 24px;
+}
+
+/* Section headings */
+.devspace-sidebar h3 {
+    margin: 0 8px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Paragraph text */
+.devspace-sidebar p {
+    margin: 0 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6b7280;
+}
+
+/* Lists */
+.devspace-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Flowbite-style navigation item */
+.devspace-sidebar li a {
+    display: flex;
+    align-items: center;
+
+    padding: 6px 8px;
+    margin: 2px 0;
+
+    border-radius: 6px;
+
+    color: #4b5563;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: background-color 0.15s ease,
+                color 0.15s ease;
+}
+
+/* Flowbite-like hover */
+.devspace-sidebar li a:hover {
+    background: #f3f4f6;
+    color: #2563eb;
+}
+
+/* Start Writing button */
+.devspace-sidebar .write-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 12px 8px 0;
+    padding: 8px 12px;
+
+    border-radius: 6px;
+
+    background: #111827;
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: background-color 0.15s ease;
+}
+
+.devspace-sidebar .write-btn:hover {
+    background: #374151;
+}
+
+/* Divider */
+.devspace-sidebar hr {
+    border: 0;
+    border-top: 1px solid #e5e7eb;
+    margin: 20px 8px;
+}
+</style>

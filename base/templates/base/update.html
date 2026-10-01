@@ -1,0 +1,217 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .create-blog {
+        max-width: 850px;
+        margin: 40px auto;
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .create-blog h1 {
+        font-size: 2rem;
+        margin-bottom: 8px;
+        color: #0f172a;
+    }
+
+    .create-blog .subtitle {
+        color: #64748b;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 22px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #334155;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        outline: none;
+        font-size: 1rem;
+        color: #0f172a;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #38bdf8;
+        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+    }
+
+    .form-group textarea {
+        min-height: 300px;
+        resize: vertical;
+        line-height: 1.6;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .cancel-btn,
+    .update-btn {
+        padding: 11px 22px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-size: 0.95rem;
+    }
+
+    .cancel-btn {
+        background: #e2e8f0;
+        color: #334155;
+    }
+
+    .cancel-btn:hover {
+        background: #cbd5e1;
+    }
+
+    .update-btn {
+        background: #38bdf8;
+        color: #0f172a;
+    }
+
+    .update-btn:hover {
+        background: #0ea5e9;
+    }
+
+    @media (max-width: 700px) {
+        .create-blog {
+            margin: 20px 10px;
+            padding: 25px 20px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .cancel-btn,
+        .update-btn {
+            text-align: center;
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div class="create-blog">
+
+    <h1>Update Blog</h1>
+
+    <p class="subtitle">
+        Update your blog and make your changes.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="title">Blog Title</label>
+
+            <input
+                type="text"
+                id="title"
+                name="title"
+                value="{{ blog.title }}"
+                placeholder="Enter your blog title..."
+            >
+        </div>
+
+
+        <div class="form-group">
+            <label for="category">Category</label>
+
+            <select id="category" name="category">
+                <option value="">Select a category</option>
+
+                <option value="technology"
+                    {% if blog.category == "technology" %}selected{% endif %}>
+                    Technology
+                </option>
+
+                <option value="programming"
+                    {% if blog.category == "programming" %}selected{% endif %}>
+                    Programming
+                </option>
+
+                <option value="finance"
+                    {% if blog.category == "finance" %}selected{% endif %}>
+                    Finance
+                </option>
+
+                <option value="self-help"
+                    {% if blog.category == "self-help" %}selected{% endif %}>
+                    Self Help
+                </option>
+
+                <option value="career"
+                    {% if blog.category == "career" %}selected{% endif %}>
+                    Career
+                </option>
+
+                <option value="lifestyle"
+                    {% if blog.category == "lifestyle" %}selected{% endif %}>
+                    Lifestyle
+                </option>
+
+                <option value="health"
+                    {% if blog.category == "health" %}selected{% endif %}>
+                    Health & Fitness
+                </option>
+
+                <option value="travel"
+                    {% if blog.category == "travel" %}selected{% endif %}>
+                    Travel
+                </option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="content">Content</label>
+
+            <textarea
+                id="content"
+                name="content"
+                placeholder="Start writing your blog..."
+            >{{ blog.content }}</textarea>
+        </div>
+
+
+        <div class="form-actions">
+
+            <a href="{% url 'blog' blog.id %}" class="cancel-btn">
+                Cancel
+            </a>
+
+            <button type="submit" class="update-btn">
+                Update Blog
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock content %}

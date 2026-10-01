@@ -1,0 +1,318 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="create-devlog-page">
+
+    <div class="create-devlog-card">
+
+        <!-- Header -->
+        <div class="devlog-header">
+
+            <div class="devlog-icon">
+                +
+            </div>
+
+            <div>
+                <h1>Add DevLog</h1>
+
+                <p>
+                    Document what happened while building
+                    <strong>{{ project.name }}</strong>.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- Title -->
+            <div class="form-group">
+
+                <label>DevLog Title</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="e.g. Fixed JWT authentication bug"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Type -->
+            <div class="form-group">
+
+                <label>Log Type</label>
+
+                <select name="log_type">
+
+                    <option value="build">Build</option>
+                    <option value="bug">Bug</option>
+                    <option value="decision">Decision</option>
+                    <option value="learning">Learning</option>
+                    <option value="milestone">Milestone</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Content -->
+            <div class="form-group">
+
+                <label>What happened?</label>
+
+                <textarea
+                    name="content"
+                    rows="12"
+                    placeholder="What did you build? What broke? How did you fix it? What did you learn?"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- Actions -->
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'project-detail' project.id %}"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="publish-btn"
+                >
+                    Publish DevLog
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* ========================= */
+/* Page */
+/* ========================= */
+
+.create-devlog-page {
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+
+/* ========================= */
+/* Card */
+/* ========================= */
+
+.create-devlog-card {
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    padding: 30px;
+}
+
+
+/* ========================= */
+/* Header */
+/* ========================= */
+
+.devlog-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.devlog-header h1 {
+    margin: 0;
+
+    font-size: 26px;
+    color: #0f172a;
+}
+
+.devlog-header p {
+    margin: 5px 0 0;
+
+    color: #64748b;
+    font-size: 13px;
+}
+
+.devlog-header strong {
+    color: #334155;
+}
+
+
+/* ========================= */
+/* Icon */
+/* ========================= */
+
+.devlog-icon {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #0f172a;
+    color: white;
+
+    font-size: 26px;
+}
+
+
+/* ========================= */
+/* Form */
+/* ========================= */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+
+    background: #f8fafc;
+
+    color: #0f172a;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+}
+
+.form-group textarea {
+    resize: vertical;
+    line-height: 1.7;
+}
+
+
+/* ========================= */
+/* Actions */
+/* ========================= */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #f1f5f9;
+}
+
+.cancel-btn,
+.publish-btn {
+    padding: 9px 15px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.cancel-btn:hover {
+    background: #e2e8f0;
+}
+
+.publish-btn {
+    border: none;
+
+    background: #0f172a;
+    color: white;
+}
+
+.publish-btn:hover {
+    background: #1e293b;
+}
+
+
+/* ========================= */
+/* Mobile */
+/* ========================= */
+
+@media (max-width: 700px) {
+
+    .create-devlog-page {
+        margin: 15px;
+    }
+
+    .create-devlog-card {
+        padding: 22px;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    .cancel-btn,
+    .publish-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+}
+
+</style>
+
+{% endblock content %}

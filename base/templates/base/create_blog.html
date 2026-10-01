@@ -1,0 +1,186 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .create-blog {
+        max-width: 850px;
+        margin: 40px auto;
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .create-blog h1 {
+        font-size: 2rem;
+        margin-bottom: 8px;
+        color: #0f172a;
+    }
+
+    .create-blog .subtitle {
+        color: #64748b;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 22px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #334155;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        outline: none;
+        font-size: 1rem;
+        color: #0f172a;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #38bdf8;
+        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+    }
+
+    .form-group textarea {
+        min-height: 300px;
+        resize: vertical;
+        line-height: 1.6;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .cancel-btn,
+    .publish-btn {
+        padding: 11px 22px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-size: 0.95rem;
+    }
+
+    .cancel-btn {
+        background: #e2e8f0;
+        color: #334155;
+    }
+
+    .cancel-btn:hover {
+        background: #cbd5e1;
+    }
+
+    .publish-btn {
+        background: #38bdf8;
+        color: #0f172a;
+    }
+
+    .publish-btn:hover {
+        background: #0ea5e9;
+    }
+
+    @media (max-width: 700px) {
+        .create-blog {
+            margin: 20px 10px;
+            padding: 25px 20px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .cancel-btn,
+        .publish-btn {
+            text-align: center;
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div class="create-blog">
+
+    <h1>Create a New Blog</h1>
+
+    <p class="subtitle">
+        Share your thoughts, ideas and experiences with the community.
+    </p>
+
+    <form method="POST">
+       {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Blog Title</label>
+            <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter your blog title..."
+            >
+        </div>
+
+
+        <div class="form-group">
+            <label for="category">Category</label>
+
+            <select id="category" name="category">
+                <option value="">Select a topic</option>
+            
+                <option value="programming">Programming</option>
+                <option value="web-development">Web Development</option>
+                <option value="backend">Backend</option>
+                <option value="frontend">Frontend</option>
+                <option value="databases">Databases</option>
+                <option value="devops">DevOps & Cloud</option>
+                <option value="machine-learning">Machine Learning</option>
+                <option value="system-design">System Design</option>
+                <option value="career">Career</option>
+                <option value="learning">Learning</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="content">Content</label>
+
+            <textarea
+                id="content"
+                name="content"
+                placeholder="Start writing your blog..."
+            ></textarea>
+        </div>
+
+
+        <div class="form-actions">
+
+            <a href="#" class="cancel-btn">
+                Cancel
+            </a>
+
+            <button type="submit" class="publish-btn">
+                Publish Blog
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock content %}
